@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robert Haldeman Jr. - Research Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d8;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease, padding 0.3s ease;
+  }
+
+  nav.scrolled {
+    background: rgba(10,22,40,0.96);
+    backdrop-filter: blur(10px);
+    padding: 14px 10%;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 140px 10% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    animation: pulse 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+
+  .header-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  h1 span { color: var(--gold); font-style: italic; }
+
+  .header-bio {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .header-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.8);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* SECTIONS */
+  section { padding: 90px 10%; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 56px;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--cream); padding-top: 60px; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--white);
+    padding: 44px 38px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 3px;
+    background: var(--gold);
+    transition: width 0.4s ease;
+  }
+
+  .project-card:hover::after { width: 100%; }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(10,22,40,0.1); }
+
+  .project-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: var(--cream-dark);
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+  }
+
+  .project-card:hover .project-number { color: rgba(201,168,76,0.2); }
+
+  .project-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .project-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .tool-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    background: var(--cream);
+    color: var(--navy);
+    border-radius: 20px;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+
+  .project-link:hover { color: var(--gold); gap: 14px; }
+
+  .project-link svg { width: 16px; height: 16px; }
+
+  /* SKILLS */
+  #skills { background: var(--navy); }
+  #skills .section-title { color: var(--white); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 40px;
+  }
+
+  .skill-group h3 {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .skill-list li {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--cream-dark); text-align: center; }
+  #contact .section-title { margin-bottom: 14px; }
+
+  .contact-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 44px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-navy {
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    background: transparent;
+  }
+
+  .btn-navy:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 28px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p { font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+
+  footer a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    header, section { padding-left: 6%; padding-right: 6%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">R<span>.</span>Haldeman Jr.</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <p class="header-tag">Economics &amp; Quantitative Research</p>
+  <h1>Robert<br><span>Haldeman Jr.</span></h1>
+  <p class="header-bio">Economics B.A. candidate at Rowan University, May 2026. I build econometric models, design relational databases, and apply quantitative methods to financial and policy questions.</p>
+  <div class="header-links">
+    <a class="btn btn-gold" href="https://www.linkedin.com/in/roberthaldemanjr" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a class="btn btn-ghost" href="https://github.com/RobHaldeman1" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </div>
+</header>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">Selected Work</p>
+  <h2 class="section-title reveal">Research Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-number">01</div>
+      <span class="project-tag">SQL &amp; Financial Analysis</span>
+      <h3 class="project-title">Disney Segment Financial Reporting</h3>
+      <p class="project-desc">Built a relational SQLite database from Disney's SEC-filed quarterly earnings releases across FY2024 and FY2025. Wrote six SQL queries using window functions and conditional aggregation to produce cross-segment P&amp;L summaries, operating margin analysis, and a Linear vs. Direct-to-Consumer revenue trend breakdown across Entertainment, Sports, and Experiences.</p>
+      <div class="project-tools">
+        <span class="tool-tag">SQLite3</span>
+        <span class="tool-tag">SQL</span>
+        <span class="tool-tag">Excel</span>
+        <span class="tool-tag">SEC EDGAR</span>
+      </div>
+      <a class="project-link" href="https://github.com/RobHaldeman1/Disney-segment-financial-reporting" target="_blank" rel="noopener noreferrer">
+        View Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-number">02</div>
+      <span class="project-tag">Econometrics &amp; Time Series</span>
+      <h3 class="project-title">Macroeconomic Drivers of U.S. Sports Betting</h3>
+      <p class="project-desc">Conducted a 120-month time-series econometric analysis (2015-2025) testing macroeconomic indicators against U.S. gambling behavior. Engineered OLS regression models and executed a CAPM analysis on Penn Entertainment (PENN) against the S&amp;P 500. Findings disproved the traditional hardship hypothesis, with industry Beta surging from 1.72 to 2.83 post-legalization.</p>
+      <div class="project-tools">
+        <span class="tool-tag">Stata</span>
+        <span class="tool-tag">OLS Regression</span>
+        <span class="tool-tag">CAPM</span>
+        <span class="tool-tag">Excel</span>
+      </div>
+      <a class="project-link" href="https://robhaldeman1.github.io/OLS-Academic-Research/" target="_blank" rel="noopener noreferrer">
+        View Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-number">03</div>
+      <span class="project-tag">Panel Data &amp; Policy Analysis</span>
+      <h3 class="project-title">College Tuition and State Funding: Cost-Shifting Hypothesis</h3>
+      <p class="project-desc">Assembled a panel dataset of 1,150 state-year observations (50 states, 2002-2024) merging SHEEO, FRED, and BEA data. Ran nine OLS regression specifications introducing fixed effects and clustered standard errors. Found that for every $1,000 per-student cut in state appropriations, net tuition revenue rises by $253 (state FE, p = 0.001), with R2 improving from 0.50 to 0.72.</p>
+      <div class="project-tools">
+        <span class="tool-tag">Stata</span>
+        <span class="tool-tag">Panel Data</span>
+        <span class="tool-tag">Fixed Effects</span>
+        <span class="tool-tag">FRED</span>
+        <span class="tool-tag">BEA</span>
+      </div>
+      <a class="project-link" href="https://robhaldeman1.github.io/CollegeTuitionandStatefunding/" target="_blank" rel="noopener noreferrer">
+        View Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label reveal" style="color:var(--gold)">Capabilities</p>
+  <h2 class="section-title reveal">Skills &amp; Tools</h2>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <h3>Software</h3>
+      <ul class="skill-list">
+        <li>Stata</li>
+        <li>SQLite3</li>
+        <li>Excel</li>
+        <li>Power BI</li>
+        <li>SAP &amp; Microsoft Dynamics 365</li>
+        <li>Python &amp; R</li>
+      </ul>
+    </div>
+    <div class="skill-group reveal">
+      <h3>Methods</h3>
+      <ul class="skill-list">
+        <li>OLS &amp; Panel Data Regression</li>
+        <li>Time Series Econometrics</li>
+        <li>Fixed Effects Modeling</li>
+        <li>Capital Asset Pricing Model (CAPM)</li>
+        <li>SQL Query Design</li>
+        <li>Variance &amp; Financial Analysis</li>
+      </ul>
+    </div>
+    <div class="skill-group reveal">
+      <h3>Education</h3>
+      <ul class="skill-list">
+        <li>B.A. Economics, Rowan University</li>
+        <li>Econometrics, Money &amp; Banking</li>
+        <li>Labor Economics, Global Economics</li>
+        <li>Alpha Beta Gamma Honors Society</li>
+        <li>Omicron Delta Epsilon</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label reveal">Get in Touch</p>
+  <h2 class="section-title reveal">Let's Connect</h2>
+  <p class="contact-sub reveal">Open to full-time roles in financial analysis, FP&amp;A, and related fields starting May 2026.</p>
+  <div class="contact-links reveal">
+    <a class="btn btn-gold" href="mailto:HaldemanRob@gmail.com">HaldemanRob@gmail.com</a>
+    <a class="btn btn-navy" href="tel:8562758187">856-275-8187</a>
+    <a class="btn btn-navy" href="https://www.linkedin.com/in/roberthaldemanjr" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a class="btn btn-navy" href="https://github.com/RobHaldeman1" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Robert Haldeman Jr. &copy; 2026</p>
+  <a href="#">Back to top</a>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+  requestAnimationFrame(() => {
+    reveals.forEach(el => observer.observe(el));
+  });
+</script>
+
+</body>
+</html>
